@@ -83,6 +83,6 @@ class WeatherTransformer:
         df = WeatherTransformer.remove_duplicates(df)
         
         final_rows = len(df)
-        logger.info(f"Transformation complete: {initial_rows} rows → {final_rows} rows")
+        logger.info(f"Transformation complete: {initial_rows} rows -> {final_rows} rows")
         
         return df

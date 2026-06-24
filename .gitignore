@@ -219,3 +219,16 @@ __marimo__/
 
 # Agents.md
 AGENTS.md
+
+# Temporary project test scripts
+simple_test.py
+test_output.txt
+db_test.py
+db_test_output.txt
+reset_db.py
+verify_db.py
+verify_elt.py
+run_local.py
+run_elt.py
+test_imports.py
+test_no_db.py

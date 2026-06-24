@@ -51,10 +51,11 @@ class WeatherETLPipeline:
             
             # Load
             logger.info("Loading data into database")
-            self.loader.execute_schema_script(str(self.schema_path))
-            location_map = self.loader.load_dim_location(location_dim)
-            date_map = self.loader.load_dim_date(date_dim)
-            self.loader.load_fact_weather(weather_fact, location_map, date_map)
+            with self.loader.engine.connect() as conn:
+                self.loader.execute_schema_script(str(self.schema_path))
+                location_map = self.loader.load_dim_location(location_dim, conn)
+                date_map = self.loader.load_dim_date(date_dim, conn)
+                self.loader.load_fact_weather(weather_fact, location_map, date_map, conn)
             
             logger.info("ETL pipeline completed successfully")
         except Exception as e:
@@ -85,9 +86,10 @@ class WeatherETLPipeline:
             
             # Load final tables
             logger.info("Loading transformed data into final tables")
-            location_map = self.loader.load_dim_location(location_dim)
-            date_map = self.loader.load_dim_date(date_dim)
-            self.loader.load_fact_weather(weather_fact, location_map, date_map)
+            with self.loader.engine.connect() as conn:
+                location_map = self.loader.load_dim_location(location_dim, conn)
+                date_map = self.loader.load_dim_date(date_dim, conn)
+                self.loader.load_fact_weather(weather_fact, location_map, date_map, conn)
             
             logger.info("ELT workflow completed successfully")
         except Exception as e:

@@ -1,13 +1,10 @@
+
 -- Weather Analytics Star Schema
 
--- Drop tables if they exist (for development purposes)
-DROP TABLE IF EXISTS fact_weather_observations;
-DROP TABLE IF EXISTS dim_location;
-DROP TABLE IF EXISTS dim_date;
-DROP TABLE IF EXISTS staging_weather_raw;
+-- Create tables only if they don't exist (instead of dropping)
 
 -- Dimension: Location
-CREATE TABLE dim_location (
+CREATE TABLE IF NOT EXISTS dim_location (
     location_id SERIAL PRIMARY KEY,
     location_name VARCHAR(100) NOT NULL,
     latitude NUMERIC(9,6) NOT NULL,
@@ -16,7 +13,7 @@ CREATE TABLE dim_location (
 );
 
 -- Dimension: Date
-CREATE TABLE dim_date (
+CREATE TABLE IF NOT EXISTS dim_date (
     date_id SERIAL PRIMARY KEY,
     date DATE NOT NULL UNIQUE,
     day INT NOT NULL,
@@ -29,7 +26,7 @@ CREATE TABLE dim_date (
 );
 
 -- Fact Table: Weather Observations
-CREATE TABLE fact_weather_observations (
+CREATE TABLE IF NOT EXISTS fact_weather_observations (
     observation_id SERIAL PRIMARY KEY,
     location_id INT REFERENCES dim_location(location_id),
     date_id INT REFERENCES dim_date(date_id),
@@ -44,7 +41,7 @@ CREATE TABLE fact_weather_observations (
 );
 
 -- Staging Table for ELT Workflow
-CREATE TABLE staging_weather_raw (
+CREATE TABLE IF NOT EXISTS staging_weather_raw (
     staging_id SERIAL PRIMARY KEY,
     raw_data JSONB NOT NULL,
     location_name VARCHAR(100) NOT NULL,

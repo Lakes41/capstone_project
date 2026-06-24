@@ -126,7 +126,7 @@ The `.env` file supports:
 from src.weather_pipeline.pipeline import WeatherETLPipeline
 
 pipeline = WeatherETLPipeline()
-pipeline.run_etl(start_date="2024-01-01", end_date="2024-01-31")
+pipeline.run_etl(start_date="2026-06-01", end_date="2026-06-30")
 ```
 
 ### Run ELT Workflow
@@ -134,7 +134,7 @@ pipeline.run_etl(start_date="2024-01-01", end_date="2024-01-31")
 from src.weather_pipeline.pipeline import WeatherETLPipeline
 
 pipeline = WeatherETLPipeline()
-pipeline.run_elt(start_date="2024-01-01", end_date="2024-01-31")
+pipeline.run_elt(start_date="2026-06-01", end_date="2026-06-30")
 ```
 
 ## Airflow Setup

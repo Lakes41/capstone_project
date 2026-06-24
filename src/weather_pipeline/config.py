@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
 
 
@@ -12,9 +12,10 @@ class Settings(BaseSettings):
     PIPELINE_END_DATE: str = "2024-12-31"
     LOG_LEVEL: str = "INFO"
     
-    class Config:
-        env_file = Path(__file__).parent.parent.parent / ".env"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=Path(__file__).parent.parent.parent / ".env",
+        env_file_encoding="utf-8"
+    )
 
 
 settings = Settings()
